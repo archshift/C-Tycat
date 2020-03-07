@@ -152,6 +152,8 @@ static void _ctydot_fvalue(_Cty_Die *die, void *data)
             fprintf(f, "%jd", read_memory(data, size)); break;
         case DW_ATE_unsigned:
             fprintf(f, "%ju", read_memory(data, size)); break;
+        case DW_ATE_unsigned_char:
+            fprintf(f, "%u", read_memory(data, size)); break;
         case DW_ATE_signed_char:
             print_char(*(char *)data); break;
         case DW_ATE_float:
@@ -174,4 +176,20 @@ void _ctydot_value(_Cty_Die *die, void *data)
 
     fputs("</font>) ", f);
     _ctydot_fvalue(die, data);
+}
+
+// Print the values of an array.
+void _ctydot_values(_Cty_Die *die, void *data, size_t item_size, size_t items)
+{
+    fputs("(<font color=\"royalblue\">", f);
+    _ctydot_typename(die);
+
+    fputs("</font>) ", f);
+
+    char *end = (char *)data + items * item_size;
+    char *pos = data;
+    for (; pos < end; pos += item_size) {
+        _ctydot_fvalue(die, pos);
+        fputs(" ", f);
+    }
 }

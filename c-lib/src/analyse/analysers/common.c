@@ -42,11 +42,17 @@ void _ctyan_analyse(Dwarf_Off offset, void *data)
 
     int type = dwarf_tag(&die.type);
 
-    if (type == DW_TAG_structure_type)
+    switch (type) {
+    case DW_TAG_structure_type:
         _ctyan_struct(&die, data);
-
-    else if (type == DW_TAG_pointer_type)
+        break;
+    case DW_TAG_pointer_type:
         _ctyan_pointer(&die, data);
+        break;
+    case DW_TAG_array_type:
+        _ctyan_array(&die, data);
+        return;
+    }
 
     _ctyan_basetype(&die, data);
 

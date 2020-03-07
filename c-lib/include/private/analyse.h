@@ -99,6 +99,9 @@ void _ctyan_analyse_inline(Dwarf_Off offset, void *data);
 // Analyse a base type.
 void _ctyan_basetype(_Cty_Die *die, void *data);
 
+// Analyse a static array.
+void _ctyan_array(_Cty_Die *fdie, void *data);
+
 // Analyse an array from a pointer.
 void _ctyan_ptrarray(_Cty_Die *fdie, void *data, size_t size);
 

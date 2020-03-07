@@ -39,9 +39,8 @@ void _ctydot_dotify(Dwarf_Off offset, void *data)
     else if (type == DW_TAG_pointer_type)
         _ctydot_pointer(&die, data);
 
-    // TODO.
     else if (type == DW_TAG_array_type)
-        return;
+        _ctydot_array(&die, data);
 
     else
         _ctydot_basetype(&die, data);
@@ -65,7 +64,7 @@ void _ctydot_dotify_inline(Dwarf_Off offset, void *data)
 
     // TODO.
     else if (type == DW_TAG_array_type)
-        return;
+        _ctydot_array_inline(&die, data);
 
     else
         _ctydot_value(&die, data);
